@@ -20,6 +20,7 @@ function App() {
   // }, [location]);
 
   return (
+    // <div className="app--container">
     <BrowserRouter>
       <Navbar />
       <Routes>
@@ -29,6 +30,7 @@ function App() {
       </Routes>
       <Footer />
     </BrowserRouter>
+    // </div>
   );
 }
 
