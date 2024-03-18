@@ -6,6 +6,19 @@ import Footer from "./components/footer";
 import Vans from "./pages/vans";
 
 function App() {
+  // useEffect(() => {
+  //   const path = location.pathname;
+  //   if (path.includes("/about")) {
+  //     setActualPage("about");
+  //   } else if (path.includes("/vans")) {
+  //     setActualPage("vans");
+  //   } else {
+  //     setActualPage("");
+  //   }
+
+  //   return null;
+  // }, [location]);
+
   return (
     <BrowserRouter>
       <Navbar />
