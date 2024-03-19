@@ -38,7 +38,8 @@ nav a {
   color: #e17654;
 }
 
-.nav--pages a.active {
+.nav--pages a.active,
+.host-editvans-van--nav a.active {
   color: #161616;
   font-weight: 600;
   text-decoration: underline;
@@ -122,4 +123,42 @@ nav a {
 .loading {
   text-align: center;
   margin: 3rem auto;
+}
+
+.host-vcard--container {
+  background-color: white;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.2rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.1s ease-in-out;
+}
+
+.host-vcard--container:hover {
+  background-color: #ffead0;
+}
+
+.host-vcard--container img {
+  width: 65px;
+  height: 65px;
+  border-radius: 5px;
+}
+
+.host-vcard--details * {
+  margin: 0;
+}
+
+.host-vcard--details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 3px;
+}
+
+.host-vcard--details span {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #4d4d4d;
 }

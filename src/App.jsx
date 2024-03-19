@@ -9,8 +9,11 @@ import Dashboard from "./pages/host/dashboard";
 import Income from "./pages/host/income";
 import Reviews from "./pages/host/reviews";
 import EditVans from "./pages/host/editvans";
-import "./components/components.css";
 import "./server";
+import EditVanDetails from "./pages/host/editvans-details";
+import HostVanDetails from "./pages/host/details";
+import HostVanPricing from "./pages/host/pricing";
+import HostVanPhotos from "./pages/host/photos";
 
 function App() {
   return (
@@ -29,7 +32,11 @@ function App() {
             <Route path="reviews" element={<Reviews />} />
             <Route path="editvan">
               <Route index element={<EditVans />} />
-              <Route path=":id" element="" />
+              <Route path=":id" element={<EditVanDetails />}>
+                <Route index element={<HostVanDetails />} />
+                <Route path="pricing" element={<HostVanPricing />} />
+                <Route path="photos" element={<HostVanPhotos />} />
+              </Route>
             </Route>
           </Route>
         </Route>
