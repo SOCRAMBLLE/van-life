@@ -25,7 +25,7 @@ export default function EditVanDetails() {
               <h2>{currentVan.name}</h2>
               <h3>
                 ${currentVan.price}
-                <span>/day</span>
+                <span className="price-tag--day">/day</span>
               </h3>
             </div>
           </div>
