@@ -51,6 +51,7 @@ body {
   color: white;
   border: none;
   font-family: "Inter", sans-serif;
+  cursor: pointer;
 }
 
 .aboutpage--container {
@@ -88,6 +89,7 @@ body {
   color: white;
   font-family: "Inter", sans-serif;
   font-weight: 600;
+  cursor: pointer;
 }
 
 .vanspage--container {
@@ -101,6 +103,7 @@ body {
 .vanspage--filter-buttons {
   display: flex;
   gap: 1rem;
+  color: black;
 }
 
 .vanspage--filter-buttons > button {
