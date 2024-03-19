@@ -9,6 +9,7 @@ import Dashboard from "./pages/host/dashboard";
 import Income from "./pages/host/income";
 import Reviews from "./pages/host/reviews";
 import EditVans from "./pages/host/editvans";
+import "./components/components.css";
 import "./server";
 
 function App() {

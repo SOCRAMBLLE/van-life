@@ -1,47 +1,34 @@
-import { useEffect, useState } from "react";
-import { Outlet, Link, useLocation } from "react-router-dom";
+import { Outlet, NavLink } from "react-router-dom";
 
 export default function HostLayout() {
-  const [actualPage, setActualPage] = useState("");
-
-  let location = useLocation();
-  useEffect(() => {
-    let path = location.pathname;
-    if (path.includes("income")) {
-      setActualPage("income");
-    } else if (path.includes("reviews")) {
-      setActualPage("reviews");
-    } else if (path.includes("editvan")) {
-      setActualPage("editvan");
-    } else {
-      setActualPage("dashboard");
-    }
-  }, [location]);
-
   return (
     <div className="host-layout">
       <div className="nav--pages">
-        <Link to="/host" className={actualPage == "dashboard" ? "active" : ""}>
+        <NavLink
+          to="/host"
+          end
+          className={({ isActive }) => isActive && "active"}
+        >
           Dashboard
-        </Link>
-        <Link
+        </NavLink>
+        <NavLink
           to="/host/income"
-          className={actualPage == "income" ? "active" : ""}
+          className={({ isActive }) => isActive && "active"}
         >
           Income
-        </Link>
-        <Link
+        </NavLink>
+        <NavLink
           to="/host/editvan"
-          className={actualPage == "editvan" ? "active" : ""}
+          className={({ isActive }) => isActive && "active"}
         >
           Vans
-        </Link>
-        <Link
+        </NavLink>
+        <NavLink
           to="/host/reviews"
-          className={actualPage == "reviews" ? "active" : ""}
+          className={({ isActive }) => isActive && "active"}
         >
           Reviews
-        </Link>
+        </NavLink>
       </div>
       <Outlet />
     </div>

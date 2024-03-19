@@ -1,39 +1,21 @@
-import { Link, useLocation } from "react-router-dom";
-import { useEffect, useState } from "react";
-import "./components.css";
+import { NavLink } from "react-router-dom";
 
 export default function Navbar() {
-  const [actualPage, setActualPage] = useState("");
-
-  let location = useLocation();
-  useEffect(() => {
-    let path = location.pathname;
-    if (path.includes("about")) {
-      setActualPage("about");
-    } else if (path.includes("vans")) {
-      setActualPage("vans");
-    } else if (path.includes("host")) {
-      setActualPage("host");
-    } else {
-      setActualPage("");
-    }
-  }, [location]);
-
   return (
     <nav>
       <div className="nav--brand">
-        <Link to="/">#VANLIFE</Link>
+        <NavLink to="/">#VANLIFE</NavLink>
       </div>
       <div className="nav--pages">
-        <Link to="/host" className={actualPage == "host" ? "active" : ""}>
+        <NavLink to="/host" className={({ isActive }) => isActive && "active"}>
           Host
-        </Link>
-        <Link to="/about" className={actualPage == "about" ? "active" : ""}>
+        </NavLink>
+        <NavLink to="/about" className={({ isActive }) => isActive && "active"}>
           About
-        </Link>
-        <Link to="/vans" className={actualPage == "vans" ? "active" : ""}>
+        </NavLink>
+        <NavLink to="/vans" className={({ isActive }) => isActive && "active"}>
           Vans
-        </Link>
+        </NavLink>
       </div>
     </nav>
   );

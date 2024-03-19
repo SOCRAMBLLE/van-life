@@ -39,6 +39,7 @@ nav a {
 }
 
 .nav--pages a.active {
+  color: #161616;
   font-weight: 600;
   text-decoration: underline;
 }
