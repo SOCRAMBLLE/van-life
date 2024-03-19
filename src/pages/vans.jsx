@@ -1,16 +1,13 @@
 import { useEffect, useState } from "react";
 import VanCard from "../components/vanCard";
-import createServer from "../server";
 
 export default function Vans() {
-  const [vansData, setVansData] = useState();
+  const [vansData, setVansData] = useState(null);
 
   useEffect(() => {
-    createServer;
     fetch("/api/vans")
       .then((res) => res.json())
       .then((data) => setVansData(data.vans));
-    console.log(vansData);
   }, []);
   return (
     <main className="vanspage--container">
@@ -23,17 +20,22 @@ export default function Vans() {
         </div>
         <button className="vanspage--filter-clear">Clear filters</button>
       </div>
-      <section className="vanspage--vanscontainer">
-        {vansData.map((van) => (
-          <VanCard
-            key={van.id}
-            filter={van.type}
-            imgSrc={van.imageUrl}
-            vanName={van.name}
-            price={van.price}
-          />
-        ))}
-      </section>
+      {vansData ? (
+        <section className="vanspage--vanscontainer">
+          {vansData.map((van) => (
+            <VanCard
+              id={van.id}
+              key={van.id}
+              filter={van.type}
+              imgSrc={van.imageUrl}
+              vanName={van.name}
+              price={van.price}
+            />
+          ))}
+        </section>
+      ) : (
+        <h3 className="loading">Loading...</h3>
+      )}
     </main>
   );
 }

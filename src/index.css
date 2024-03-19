@@ -124,3 +124,51 @@ body {
   font-family: "Inter", sans-serif;
   cursor: pointer;
 }
+
+.van-detail--container {
+  display: flex;
+  flex-direction: column;
+  margin: 2rem 1.5rem;
+}
+.van-detail--backbutton {
+  color: #858585;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.van-detail--backbutton a {
+  color: black;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+.van-detail--container img {
+  border-radius: 5px;
+  margin: 2rem 0;
+}
+.van-detail--details h2 {
+  margin: 1rem 0;
+}
+.van-detail--details h4 {
+  margin: 0;
+}
+.van-detail--details h4 span {
+  font-weight: 500;
+  font-size: 0.8rem;
+}
+.van-detail--details p {
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.van-detail--container button {
+  margin: 1rem 0;
+  height: 37px;
+  border-radius: 5px;
+  background-color: #ff8c38;
+  color: white;
+  border: none;
+  font-family: "Inter", sans-serif;
+  cursor: pointer;
+}

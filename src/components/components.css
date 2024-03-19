@@ -63,9 +63,14 @@ nav a {
   gap: 1.5rem;
 }
 
+.vanspage--vanscontainer a {
+  all: unset;
+}
+
 .van--card {
   position: relative;
   height: auto;
+  cursor: pointer;
 }
 
 .van--card img {
@@ -88,6 +93,7 @@ nav a {
   border-radius: 5px;
   font-size: 12px;
   border: 1px black;
+  text-transform: capitalize;
 }
 .van--type.black {
   background-color: #161616;
@@ -105,4 +111,9 @@ nav a {
 .van--price span {
   font-weight: 300;
   font-size: 0.7rem;
+}
+
+.loading {
+  text-align: center;
+  margin: 3rem auto;
 }
