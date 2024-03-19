@@ -29,6 +29,11 @@ nav a {
   text-align: left;
 }
 
+.nav--pages a {
+  color: #4d4d4d;
+  text-decoration: none;
+}
+
 .nav--pages a:hover {
   color: #e17654;
 }

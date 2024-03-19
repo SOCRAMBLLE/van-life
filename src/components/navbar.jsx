@@ -12,6 +12,8 @@ export default function Navbar() {
       setActualPage("about");
     } else if (path.includes("vans")) {
       setActualPage("vans");
+    } else if (path.includes("host")) {
+      setActualPage("host");
     } else {
       setActualPage("");
     }
@@ -23,6 +25,9 @@ export default function Navbar() {
         <Link to="/">#VANLIFE</Link>
       </div>
       <div className="nav--pages">
+        <Link to="/host" className={actualPage == "host" ? "active" : ""}>
+          Host
+        </Link>
         <Link to="/about" className={actualPage == "about" ? "active" : ""}>
           About
         </Link>
