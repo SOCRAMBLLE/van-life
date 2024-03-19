@@ -4,23 +4,11 @@ import About from "./pages/about";
 import Navbar from "./components/navbar";
 import Footer from "./components/footer";
 import Vans from "./pages/vans";
+import createServer from "./server";
 
 function App() {
-  // useEffect(() => {
-  //   const path = location.pathname;
-  //   if (path.includes("/about")) {
-  //     setActualPage("about");
-  //   } else if (path.includes("/vans")) {
-  //     setActualPage("vans");
-  //   } else {
-  //     setActualPage("");
-  //   }
-
-  //   return null;
-  // }, [location]);
-
+  createServer;
   return (
-    // <div className="app--container">
     <BrowserRouter>
       <Navbar />
       <Routes>
@@ -30,7 +18,6 @@ function App() {
       </Routes>
       <Footer />
     </BrowserRouter>
-    // </div>
   );
 }
 

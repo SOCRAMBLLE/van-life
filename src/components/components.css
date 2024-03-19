@@ -55,3 +55,54 @@ nav a {
   font-size: 1rem;
   margin-right: 3px;
 }
+
+.vanspage--vanscontainer {
+  margin: 3rem 0;
+  display: grid;
+  grid-template-columns: 47% 47%;
+  gap: 1.5rem;
+}
+
+.van--card {
+  position: relative;
+  height: auto;
+}
+
+.van--card img {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+
+.van--details-container {
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+}
+.van--details-container h5 {
+  margin: 2px 0 8px;
+}
+.van--type {
+  color: white;
+  padding: 7px 11px;
+  border-radius: 5px;
+  font-size: 12px;
+  border: 1px black;
+}
+.van--type.black {
+  background-color: #161616;
+}
+.van--type.orange {
+  background-color: #e17654;
+}
+.van--type.green {
+  background-color: #115e59;
+}
+
+.van--price {
+  text-align: right;
+}
+.van--price span {
+  font-weight: 300;
+  font-size: 0.7rem;
+}

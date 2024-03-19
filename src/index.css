@@ -88,3 +88,39 @@ body {
   font-family: "Inter", sans-serif;
   font-weight: 600;
 }
+
+.vanspage--container {
+  margin: 1rem 1.3rem;
+}
+
+.vanspage--filter {
+  display: flex;
+  justify-content: space-between;
+}
+.vanspage--filter-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.vanspage--filter-buttons > button {
+  background-color: #ffead0;
+  border: 0;
+  border-radius: 5px;
+  padding: 7px 18px;
+  font-family: "Inter", sans-serif;
+  transition: all 0.5s ease-in-out;
+  cursor: pointer;
+}
+
+.vanspage--filter-buttons > button.active {
+  background-color: #fdca8c;
+}
+
+.vanspage--filter-clear {
+  background-color: transparent;
+  border: 0;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  font-family: "Inter", sans-serif;
+  cursor: pointer;
+}
