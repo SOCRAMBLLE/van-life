@@ -1,6 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Navbar from "./components/navbar";
-import Footer from "./components/footer";
+import Layout from "./components/layout";
 import Home from "./pages/home";
 import About from "./pages/about";
 import Vans from "./pages/vans";
@@ -10,14 +9,14 @@ import "./server";
 function App() {
   return (
     <BrowserRouter>
-      <Navbar />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/vans" element={<Vans />} />
-        <Route path="/vans/:id" element={<VanDetail />} />
+        <Route element={<Layout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/vans" element={<Vans />} />
+          <Route path="/vans/:id" element={<VanDetail />} />
+        </Route>
       </Routes>
-      <Footer />
     </BrowserRouter>
   );
 }
