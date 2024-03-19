@@ -7,9 +7,10 @@
 body {
   overflow: hidden;
   position: relative;
-  margin: 0;
+  margin: auto;
   padding-bottom: 75px;
   width: 100%;
+  max-width: 500px;
   height: auto;
   min-height: 100svh;
   font-family: "Inter", sans-serif;
