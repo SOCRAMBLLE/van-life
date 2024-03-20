@@ -14,7 +14,7 @@ export default function EditVanDetails() {
   return (
     <div className="host-editvans--page">
       <span className="van-detail--backbutton">
-        ⬅ <Link to="/host/editvan">Back to all vans</Link>
+        ⬅ <Link to="..">Back to all vans</Link>
       </span>
       {currentVan ? (
         <div className="host-editvans-van--container">
@@ -33,7 +33,7 @@ export default function EditVanDetails() {
             <NavLink
               end
               className={({ isActive }) => isActive && "active"}
-              to=""
+              to="."
             >
               Details
             </NavLink>

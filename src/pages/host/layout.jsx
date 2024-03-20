@@ -4,11 +4,7 @@ export default function HostLayout() {
   return (
     <div className="host-layout">
       <div className="nav--pages">
-        <NavLink
-          to="/host"
-          end
-          className={({ isActive }) => isActive && "active"}
-        >
+        <NavLink to="." end className={({ isActive }) => isActive && "active"}>
           Dashboard
         </NavLink>
         <NavLink
