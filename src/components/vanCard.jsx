@@ -5,9 +5,10 @@ import TypeButton from "./type-button";
 export default function VanCard(props) {
   return (
     <Link
-      to={`/vans/${props.id}`}
+      to={props.id}
       aria-label={`View details for ${props.vanName}, 
     priced at $${props.price} per day`}
+      state={props.searchParams}
     >
       <div className="van--card">
         <img src={props.imgSrc} />

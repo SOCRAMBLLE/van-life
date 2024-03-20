@@ -100,7 +100,6 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 0.75rem;
 }
 .vanspage--filter-buttons {
   display: flex;
@@ -116,6 +115,7 @@ body {
   font-family: "Inter", sans-serif;
   transition: all 0.3s ease-in-out;
   cursor: pointer;
+  font-size: 0.75rem;
 }
 
 .vanspage--filter-buttons > button.simple.active {
@@ -130,6 +130,18 @@ body {
   color: white;
   background-color: #115e59;
 }
+.vanspage--filter-buttons > button.simple:hover {
+  color: white;
+  background-color: #e17654;
+}
+.vanspage--filter-buttons > button.luxury:hover {
+  color: white;
+  background-color: #161616;
+}
+.vanspage--filter-buttons > button.rugged:hover {
+  color: white;
+  background-color: #115e59;
+}
 
 .vanspage--filter-clear {
   background-color: transparent;
@@ -137,6 +149,7 @@ body {
   text-underline-offset: 2px;
   font-family: "Inter", sans-serif;
   cursor: pointer;
+  font-size: 0.75rem;
 }
 
 .van-detail--container {

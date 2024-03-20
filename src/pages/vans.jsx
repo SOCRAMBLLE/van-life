@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
 import VanCard from "../components/vanCard";
-import { useSearchParams, Link } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 
 export default function Vans() {
   const [vansData, setVansData] = useState(null);
   const [vanFilter, setVanFilter] = useSearchParams();
 
   const typeFilter = vanFilter.get("type");
-  console.log(typeFilter);
 
   useEffect(() => {
     fetch("/api/vans")
@@ -16,18 +15,18 @@ export default function Vans() {
   }, []);
 
   const filteredVans = typeFilter
-    ? vansData.filter((van) => van.type === typeFilter)
+    ? vansData?.filter((van) => van.type === typeFilter)
     : vansData;
 
-  function genNewFilterParam(key, value) {
-    const filterParam = new URLSearchParams(vanFilter);
-    if (!value) {
-      filterParam.delete(key);
-    } else {
-      filterParam.set(key, value);
-    }
-    return `?${filterParam.toString()}`;
-  }
+  // function genNewFilterParam(key, value) {
+  //   const filterParam = new URLSearchParams(vanFilter);
+  //   if (!value) {
+  //     filterParam.delete(key);
+  //   } else {
+  //     filterParam.set(key, value);
+  //   }
+  //   return `?${filterParam.toString()}`;
+  // }
 
   function handleFilterChange(key, value) {
     setVanFilter((prevParams) => {
@@ -83,6 +82,7 @@ export default function Vans() {
               imgSrc={van.imageUrl}
               vanName={van.name}
               price={van.price}
+              searchParams={{ search: `?${vanFilter.toString()}` }}
             />
           ))}
         </section>

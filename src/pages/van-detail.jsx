@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import TypeButton from "../components/type-button";
 
 export default function VanDetail() {
   const [currentVan, setcurrentVan] = useState(null);
+  const { state } = useLocation();
 
   const { id } = useParams();
   useEffect(() => {
@@ -12,10 +13,12 @@ export default function VanDetail() {
       .then((data) => setcurrentVan(data.vans));
   }, [id]);
 
+  const search = state?.search || "";
+
   return (
     <main className="van-detail--container">
       <span className="van-detail--backbutton">
-        ⬅ <Link to="..">Back to all vans</Link>
+        ⬅ <Link to={`..${search}`}>Back to all vans</Link>
       </span>
       {currentVan ? (
         <>
