@@ -1,30 +1,22 @@
-import { useEffect, useState } from "react";
 import VanCard from "../components/vanCard";
-import { useSearchParams } from "react-router-dom";
+import { useLoaderData, useSearchParams } from "react-router-dom";
 import { getVans } from "../lib/getVans";
 
-export default function Vans() {
-  const [vansData, setVansData] = useState(null);
-  const [vanFilter, setVanFilter] = useSearchParams();
-  const [error, setError] = useState(null);
-  const typeFilter = vanFilter.get("type");
+export function loader() {
+  return getVans();
+}
 
-  useEffect(() => {
-    async function loadVans() {
-      try {
-        const data = await getVans();
-        setVansData(data);
-      } catch (err) {
-        setError(err);
-      }
-    }
-    loadVans();
-  }, []);
+export default function Vans() {
+  const [vanFilter, setVanFilter] = useSearchParams();
+  // const [error, setError] = useState(null);
+  const typeFilter = vanFilter.get("type");
+  const vansData = useLoaderData();
 
   const filteredVans = typeFilter
     ? vansData?.filter((van) => van.type === typeFilter)
     : vansData;
 
+  // filter for Links
   // function genNewFilterParam(key, value) {
   //   const filterParam = new URLSearchParams(vanFilter);
   //   if (!value) {
@@ -46,9 +38,9 @@ export default function Vans() {
     });
   }
 
-  if (error) {
-    return <h1 className="loading">There was an error: {error.message}</h1>;
-  }
+  // if (error) {
+  //   return <h1 className="loading">There was an error: {error.message}</h1>;
+  // }
 
   return (
     <main className="vanspage--container">
