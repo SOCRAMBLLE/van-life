@@ -41,7 +41,7 @@ export default function LoginPage() {
         <button>Sign in</button>
       </form>
       <p className="login-page--signup-text">
-        {"Don't"} have an account? <Link>Create one now</Link>
+        {"Don't"} have an account? <Link to="/signup">Create one now</Link>
       </p>
     </div>
   );
