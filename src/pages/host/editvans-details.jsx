@@ -50,7 +50,7 @@ export default function EditVanDetails() {
               Photos
             </NavLink>
           </nav>
-          <Outlet />
+          <Outlet context={currentVan} />
         </div>
       ) : (
         <h2 className="loading">Loading...</h2>

@@ -1,16 +1,8 @@
 /* eslint-disable react/prop-types */
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useOutletContext } from "react-router-dom";
 
 export default function HostVanInfo(props) {
-  const [currentVan, setcurrentVan] = useState(null);
-
-  const { id } = useParams();
-  useEffect(() => {
-    fetch(`/api/vans/${id}`)
-      .then((res) => res.json())
-      .then((data) => setcurrentVan(data.vans));
-  }, [id]);
+  const currentVan = useOutletContext();
   return (
     <>
       {currentVan ? (
