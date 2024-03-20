@@ -82,7 +82,10 @@ export default function Vans() {
               imgSrc={van.imageUrl}
               vanName={van.name}
               price={van.price}
-              searchParams={{ search: `?${vanFilter.toString()}` }}
+              searchParams={{
+                search: `?${vanFilter.toString()}`,
+                type: typeFilter,
+              }}
             />
           ))}
         </section>

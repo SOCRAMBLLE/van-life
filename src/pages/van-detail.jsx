@@ -18,7 +18,10 @@ export default function VanDetail() {
   return (
     <main className="van-detail--container">
       <span className="van-detail--backbutton">
-        ⬅ <Link to={`..${search}`}>Back to all vans</Link>
+        ⬅{" "}
+        <Link to={`..${search}`}>
+          {`Back to ${state.type ? state.type : "all"} vans`}
+        </Link>
       </span>
       {currentVan ? (
         <>
