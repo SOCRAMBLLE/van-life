@@ -2,7 +2,7 @@
 import { useOutletContext } from "react-router-dom";
 
 export default function HostVanInfo(props) {
-  const currentVan = useOutletContext();
+  const { currentVan } = useOutletContext();
   return (
     <>
       {currentVan ? (

@@ -98,7 +98,9 @@ body {
 
 .vanspage--filter {
   display: flex;
+  align-items: center;
   justify-content: space-between;
+  font-size: 0.75rem;
 }
 .vanspage--filter-buttons {
   display: flex;
@@ -116,14 +118,22 @@ body {
   cursor: pointer;
 }
 
-.vanspage--filter-buttons > button.active {
-  background-color: #fdca8c;
+.vanspage--filter-buttons > button.simple.active {
+  color: white;
+  background-color: #e17654;
+}
+.vanspage--filter-buttons > button.luxury.active {
+  color: white;
+  background-color: #161616;
+}
+.vanspage--filter-buttons > button.rugged.active {
+  color: white;
+  background-color: #115e59;
 }
 
 .vanspage--filter-clear {
   background-color: transparent;
   border: 0;
-  text-decoration: underline;
   text-underline-offset: 2px;
   font-family: "Inter", sans-serif;
   cursor: pointer;

@@ -1,9 +1,13 @@
 import { useEffect, useState } from "react";
 import VanCard from "../components/vanCard";
+import { useSearchParams, Link } from "react-router-dom";
 
 export default function Vans() {
   const [vansData, setVansData] = useState(null);
-  const [vanFilter, setVanFilter] = useState("all");
+  const [vanFilter, setVanFilter] = useSearchParams();
+
+  const typeFilter = vanFilter.get("type");
+  console.log(typeFilter);
 
   useEffect(() => {
     fetch("/api/vans")
@@ -11,48 +15,67 @@ export default function Vans() {
       .then((data) => setVansData(data.vans));
   }, []);
 
-  const filteredVans = () => {
-    if (vanFilter === "all") {
-      return vansData;
+  const filteredVans = typeFilter
+    ? vansData.filter((van) => van.type === typeFilter)
+    : vansData;
+
+  function genNewFilterParam(key, value) {
+    const filterParam = new URLSearchParams(vanFilter);
+    if (!value) {
+      filterParam.delete(key);
     } else {
-      return vansData.filter((van) => van.type === vanFilter);
+      filterParam.set(key, value);
     }
-  };
-  console.log(vanFilter);
+    return `?${filterParam.toString()}`;
+  }
+
+  function handleFilterChange(key, value) {
+    setVanFilter((prevParams) => {
+      if (value === null) {
+        prevParams.delete(key);
+      } else {
+        prevParams.set(key, value);
+      }
+      return prevParams;
+    });
+  }
+
   return (
     <main className="vanspage--container">
       <h2>Explore our van options</h2>
       <div className="vanspage--filter">
         <div className="vanspage--filter-buttons">
           <button
-            className={vanFilter === "simple" && "active"}
-            onClick={() => setVanFilter("simple")}
+            onClick={() => handleFilterChange("type", "simple")}
+            className={`simple ${typeFilter === "simple" && "active"}`}
           >
             Simple
           </button>
           <button
-            className={vanFilter === "luxury" && "active"}
-            onClick={() => setVanFilter("luxury")}
+            onClick={() => handleFilterChange("type", "luxury")}
+            className={`luxury ${typeFilter === "luxury" && "active"}`}
           >
             Luxury
           </button>
           <button
-            className={vanFilter === "rugged" && "active"}
-            onClick={() => setVanFilter("rugged")}
+            onClick={() => handleFilterChange("type", "rugged")}
+            className={`rugged ${typeFilter === "rugged" && "active"}`}
           >
             Rugged
           </button>
         </div>
-        <button
-          onClick={() => setVanFilter("all")}
-          className="vanspage--filter-clear"
-        >
-          Clear filters
-        </button>
+        {typeFilter && (
+          <button
+            onClick={() => handleFilterChange("type", null)}
+            className="vanspage--filter-clear"
+          >
+            Clear filter
+          </button>
+        )}
       </div>
       {vansData ? (
         <section className="vanspage--vanscontainer">
-          {filteredVans().map((van) => (
+          {filteredVans.map((van) => (
             <VanCard
               id={van.id}
               key={van.id}
