@@ -9,6 +9,7 @@ import Dashboard from "./pages/host/dashboard";
 import Income from "./pages/host/income";
 import Reviews from "./pages/host/reviews";
 import EditVans from "./pages/host/editvans";
+import NotFound from "./pages/error-page";
 import "./server";
 import EditVanDetails from "./pages/host/editvans-details";
 import HostVanInfo from "./pages/host/details";
@@ -39,6 +40,7 @@ function App() {
               </Route>
             </Route>
           </Route>
+          <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
     </BrowserRouter>
