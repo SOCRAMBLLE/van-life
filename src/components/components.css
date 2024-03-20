@@ -102,13 +102,13 @@ nav a {
   border: 1px black;
   text-transform: capitalize;
 }
-.van--type.black {
+.van--type.luxury {
   background-color: #161616;
 }
-.van--type.orange {
+.van--type.simple {
   background-color: #e17654;
 }
-.van--type.green {
+.van--type.rugged {
   background-color: #115e59;
 }
 
