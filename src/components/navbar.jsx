@@ -8,18 +8,28 @@ export default function Navbar() {
         <NavLink to="/">#VANLIFE</NavLink>
       </div>
       <div className="nav--pages">
-        <NavLink to="/host" className={({ isActive }) => isActive && "active"}>
+        <NavLink
+          to="/host"
+          className={({ isActive }) => (isActive ? "active" : "")}
+        >
           Host
         </NavLink>
-        <NavLink to="/about" className={({ isActive }) => isActive && "active"}>
+        <NavLink
+          to="/about"
+          className={({ isActive }) => (isActive ? "active" : "")}
+        >
           About
         </NavLink>
-        <NavLink to="/vans" className={({ isActive }) => isActive && "active"}>
+        <NavLink
+          to="/vans"
+          className={({ isActive }) => (isActive ? "active" : "")}
+        >
           Vans
         </NavLink>
         <NavLink
           to="/login"
-          className={`nav--login ${({ isActive }) => isActive && "active"}`}
+          className={`nav--login ${({ isActive }) =>
+            isActive ? "active" : ""}`}
         >
           <img src={LoginIcon} />
         </NavLink>

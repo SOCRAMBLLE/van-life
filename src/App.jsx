@@ -23,6 +23,7 @@ import HostVanInfo from "./pages/host/details";
 import HostVanPricing from "./pages/host/pricing";
 import HostVanPhotos from "./pages/host/photos";
 import LoginPage from "./pages/login";
+import { PrivateRoute, ProvideAuth } from "./lib/auth";
 
 function App() {
   const router = createBrowserRouter(
@@ -41,7 +42,14 @@ function App() {
           <Route path=":id" element={<VanDetail />} loader={vanDetailLoader} />
         </Route>
         <Route>
-          <Route path="host" element={<HostLayout />}>
+          <Route
+            path="host"
+            element={
+              <PrivateRoute>
+                <HostLayout />
+              </PrivateRoute>
+            }
+          >
             <Route index element={<Dashboard />} />
             <Route path="income" element={<Income />} />
             <Route path="reviews" element={<Reviews />} />
@@ -63,7 +71,11 @@ function App() {
       </Route>
     )
   );
-  return <RouterProvider router={router} />;
+  return (
+    <ProvideAuth>
+      <RouterProvider router={router} />
+    </ProvideAuth>
+  );
 }
 
 export default App;

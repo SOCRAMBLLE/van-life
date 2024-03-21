@@ -3,7 +3,7 @@ import VCardHost from "../../components/vanCard-host";
 import { getHostVans } from "../../lib/getVans";
 import { useLoaderData } from "react-router-dom";
 
-export function loader() {
+export async function loader() {
   return getHostVans();
 }
 
@@ -18,19 +18,15 @@ export default function EditVans() {
     <>
       <h1>Your listed vans</h1>
       <div className="host-editvans--container">
-        {vansData ? (
-          vansData.map((van) => (
-            <VCardHost
-              id={van.id}
-              key={van.id}
-              imageUrl={van.imageUrl}
-              name={van.name}
-              price={van.price}
-            />
-          ))
-        ) : (
-          <h2 className="loading">Loading...</h2>
-        )}
+        {vansData.map((van) => (
+          <VCardHost
+            id={van.id}
+            key={van.id}
+            imageUrl={van.imageUrl}
+            name={van.name}
+            price={van.price}
+          />
+        ))}
       </div>
     </>
   );

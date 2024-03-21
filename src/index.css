@@ -221,6 +221,7 @@ body {
   flex-direction: column;
   background-color: white;
   padding: 1rem 1.3rem 2rem;
+  margin-bottom: 2rem;
 }
 
 .host-editvans-van--header {
