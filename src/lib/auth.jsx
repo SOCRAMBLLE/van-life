@@ -1,9 +1,13 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { createContext, useContext, useState } from "react";
-import { Navigate, useLocation } from "react-router-dom";
+import {
+  Navigate,
+  unstable_HistoryRouter,
+  useLocation,
+} from "react-router-dom";
 
-const authContext = createContext();
+export const AuthContext = createContext();
 
 const fakeAuth = {
   isAuthenticated: false,
@@ -18,8 +22,7 @@ const fakeAuth = {
 };
 
 function useAuth() {
-  const context = useContext(authContext);
-  return useContext(authContext);
+  return useContext(AuthContext);
 }
 
 function useProvideAuth() {
@@ -48,7 +51,7 @@ function useProvideAuth() {
 
 export function ProvideAuth({ children }) {
   const auth = useProvideAuth();
-  return <authContext.Provider value={auth}>{children}</authContext.Provider>;
+  return <AuthContext.Provider value={auth}>{children}</AuthContext.Provider>;
 }
 
 export function PrivateRoute({ children }) {
@@ -59,4 +62,22 @@ export function PrivateRoute({ children }) {
   ) : (
     <Navigate to="/login?login=false" replace state={{ from: location }} />
   );
+}
+
+export async function LoginUser(creds) {
+  const res = await fetch("/api/login", {
+    method: "post",
+    body: JSON.stringify(creds),
+  });
+  const data = await res.json();
+
+  if (!res.ok) {
+    throw {
+      message: data.message,
+      statusText: res.statusText,
+      status: res.status,
+    };
+  }
+
+  return data;
 }

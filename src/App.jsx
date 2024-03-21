@@ -24,6 +24,7 @@ import HostVanPricing from "./pages/host/pricing";
 import HostVanPhotos from "./pages/host/photos";
 import LoginPage from "./pages/login";
 import { PrivateRoute, ProvideAuth } from "./lib/auth";
+import { Action as LoginAction } from "./pages/login";
 
 function App() {
   const router = createBrowserRouter(
@@ -31,7 +32,7 @@ function App() {
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
         <Route path="about" element={<About />} />
-        <Route path="login" element={<LoginPage />} />
+        <Route path="login" element={<LoginPage />} action={LoginAction} />
         <Route path="vans">
           <Route
             index
@@ -41,29 +42,27 @@ function App() {
           />
           <Route path=":id" element={<VanDetail />} loader={vanDetailLoader} />
         </Route>
-        <Route>
-          <Route
-            path="host"
-            element={
-              <PrivateRoute>
-                <HostLayout />
-              </PrivateRoute>
-            }
-          >
-            <Route index element={<Dashboard />} />
-            <Route path="income" element={<Income />} />
-            <Route path="reviews" element={<Reviews />} />
-            <Route path="editvan">
-              <Route index element={<EditVans />} loader={hostVansLoader} />
-              <Route
-                path=":id"
-                element={<EditVanDetails />}
-                loader={hostVanDetailsLoader}
-              >
-                <Route index element={<HostVanInfo />} />
-                <Route path="pricing" element={<HostVanPricing />} />
-                <Route path="photos" element={<HostVanPhotos />} />
-              </Route>
+        <Route
+          path="host"
+          element={
+            <PrivateRoute>
+              <HostLayout />
+            </PrivateRoute>
+          }
+        >
+          <Route index element={<Dashboard />} />
+          <Route path="income" element={<Income />} />
+          <Route path="reviews" element={<Reviews />} />
+          <Route path="editvan">
+            <Route index element={<EditVans />} loader={hostVansLoader} />
+            <Route
+              path=":id"
+              element={<EditVanDetails />}
+              loader={hostVanDetailsLoader}
+            >
+              <Route index element={<HostVanInfo />} />
+              <Route path="pricing" element={<HostVanPricing />} />
+              <Route path="photos" element={<HostVanPhotos />} />
             </Route>
           </Route>
         </Route>

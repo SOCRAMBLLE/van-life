@@ -357,8 +357,10 @@ body {
   font-weight: 500;
   cursor: pointer;
 }
-
-.login-page--signup-text {
+.login-page--container form button.disabled {
+  background-color: #858585;
+}
+.login-page--container {
   margin-top: 2.5rem;
   font-weight: 500;
   font-size: 0.95rem;
@@ -367,4 +369,13 @@ body {
 .login-page--signup-text a {
   color: #fd8026;
   text-decoration: none;
+}
+
+.login-page--error-txt {
+  color: #ff0000;
+  font-size: 0.8rem;
+  border: 1px solid #ff0000;
+  border-radius: 5px;
+  padding: 5px;
+  transition: all 0.3s ease-in-out;
 }

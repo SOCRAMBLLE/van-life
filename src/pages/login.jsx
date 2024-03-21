@@ -1,30 +1,58 @@
 import { useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams, Form, useActionData } from "react-router-dom";
+import { LoginUser } from "../lib/auth";
+
+export async function Action({ request }) {
+  const formData = await request.formData();
+  const email = formData.get("email");
+  const pass = formData.get("password");
+
+  try {
+    const data = await LoginUser({ email: email, password: pass });
+    console.log(data.token);
+    return data.token;
+  } catch (err) {
+    return err;
+  }
+}
 
 export default function LoginPage() {
+  const authData = useActionData();
+  console.log("authData: ", authData);
   const [searchParams] = useSearchParams();
-  const isLoggedIn = searchParams.get("login");
-  const [loginFormData, setLoginFormData] = useState({
-    email: "",
-    password: "",
-  });
+  const params = searchParams.get("login");
+  const [formStatus, setFormStatus] = useState(false);
+  const [formError, setFormError] = useState(null);
+  console.log(formError);
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    console.log(loginFormData);
-  }
+  // async function handleSubmit(e) {
+  //   e.preventDefault();
+  //   setFormError(null);
+  //   setFormStatus(true);
+  //   console.log("LoginFormData: ", loginFormData);
+  //   try {
+  //     const res = await LoginUser(loginFormData);
+  //     console.log(res);
+  //     setFormStatus(false);
+  //   } catch (err) {
+  //     console.log("catch error:", err);
+  //     setFormError(err);
+  //   }
+  // }
 
-  function handleChange(e) {
-    const { name, value } = e.target;
-    setLoginFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  }
+  // function handleChange(e) {
+  //   setFormStatus(false);
+  //   setFormError(null);
+  //   const { name, value } = e.target;
+  //   setLoginFormData((prev) => ({
+  //     ...prev,
+  //     [name]: value,
+  //   }));
+  // }
 
   return (
     <div className="login-page--container">
-      {isLoggedIn ? (
+      {params ? (
         <h1>
           {`You're not logged in.`}
           <br />
@@ -33,23 +61,32 @@ export default function LoginPage() {
       ) : (
         <h1>Sign in to your account</h1>
       )}
-      <form onSubmit={handleSubmit}>
+      {formError && (
+        <pre className="login-page--error-txt">{formError.message}</pre>
+      )}
+      <Form method="post">
         <input
           name="email"
-          onChange={handleChange}
+          // onChange={handleChange}
           type="email"
           placeholder="Email address"
-          value={loginFormData.email}
+          // value={loginFormData.email}
         />
         <input
           name="password"
-          onChange={handleChange}
+          // onChange={handleChange}
           type="password"
           placeholder="Password"
-          value={loginFormData.password}
+          // value={loginFormData.password}
         />
-        <button>Sign in</button>
-      </form>
+        <button disabled={formStatus} className={formStatus ? "disabled" : ""}>
+          {formError
+            ? "Login failed"
+            : formStatus
+            ? "Logging in..."
+            : "Sign in"}
+        </button>
+      </Form>
       <p className="login-page--signup-text">
         {"Don't"} have an account? <Link to="/signup">Create one now</Link>
       </p>
