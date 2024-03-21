@@ -19,7 +19,6 @@ const fakeAuth = {
 
 function useAuth() {
   const context = useContext(authContext);
-  console.log("useAuth :", context);
   return useContext(authContext);
 }
 
@@ -49,17 +48,15 @@ function useProvideAuth() {
 
 export function ProvideAuth({ children }) {
   const auth = useProvideAuth();
-  console.log("ProvideAuth auth: ", auth);
   return <authContext.Provider value={auth}>{children}</authContext.Provider>;
 }
 
 export function PrivateRoute({ children }) {
   let { user } = useAuth();
   const location = useLocation();
-  console.log("PrivateRoute auth: ", user);
   return user ? (
     children
   ) : (
-    <Navigate to="/login" replace state={{ from: location }} />
+    <Navigate to="/login?login=false" replace state={{ from: location }} />
   );
 }

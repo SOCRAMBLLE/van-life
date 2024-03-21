@@ -1,7 +1,9 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 
 export default function LoginPage() {
+  const [searchParams] = useSearchParams();
+  const isLoggedIn = searchParams.get("login");
   const [loginFormData, setLoginFormData] = useState({
     email: "",
     password: "",
@@ -22,7 +24,15 @@ export default function LoginPage() {
 
   return (
     <div className="login-page--container">
-      <h1>Sign in to your account</h1>
+      {isLoggedIn ? (
+        <h1>
+          {`You're not logged in.`}
+          <br />
+          Please sign in first.
+        </h1>
+      ) : (
+        <h1>Sign in to your account</h1>
+      )}
       <form onSubmit={handleSubmit}>
         <input
           name="email"
