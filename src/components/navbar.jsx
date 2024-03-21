@@ -16,6 +16,12 @@ export default function Navbar() {
         <NavLink to="/vans" className={({ isActive }) => isActive && "active"}>
           Vans
         </NavLink>
+        <NavLink
+          to="/login"
+          className={`nav--login ${({ isActive }) => isActive && "active"}`}
+        >
+          <img src="./images/avatar-icon.png" />
+        </NavLink>
       </div>
     </nav>
   );

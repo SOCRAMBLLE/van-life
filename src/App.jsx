@@ -38,16 +38,18 @@ function App() {
           />
           <Route path=":id" element={<VanDetail />} />
         </Route>
-        <Route path="host" element={<HostLayout />}>
-          <Route index element={<Dashboard />} />
-          <Route path="income" element={<Income />} />
-          <Route path="reviews" element={<Reviews />} />
-          <Route path="editvan">
-            <Route index element={<EditVans />} />
-            <Route path=":id" element={<EditVanDetails />}>
-              <Route index element={<HostVanInfo />} />
-              <Route path="pricing" element={<HostVanPricing />} />
-              <Route path="photos" element={<HostVanPhotos />} />
+        <Route>
+          <Route path="host" element={<HostLayout />}>
+            <Route index element={<Dashboard />} />
+            <Route path="income" element={<Income />} />
+            <Route path="reviews" element={<Reviews />} />
+            <Route path="editvan">
+              <Route index element={<EditVans />} />
+              <Route path=":id" element={<EditVanDetails />}>
+                <Route index element={<HostVanInfo />} />
+                <Route path="pricing" element={<HostVanPricing />} />
+                <Route path="photos" element={<HostVanPhotos />} />
+              </Route>
             </Route>
           </Route>
         </Route>
