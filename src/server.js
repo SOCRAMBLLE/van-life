@@ -1,6 +1,7 @@
-import { createServer, Model } from "miragejs";
+/* eslint-disable no-unused-vars */
+import { createServer, Model, Response } from "miragejs";
 
-export default createServer({
+createServer({
   models: {
     vans: Model,
   },
@@ -15,6 +16,7 @@ export default createServer({
       imageUrl:
         "https://assets.scrimba.com/advanced-react/react-router/modest-explorer.png",
       type: "simple",
+      hostId: "123",
     });
     server.create("van", {
       id: "2",
@@ -25,6 +27,7 @@ export default createServer({
       imageUrl:
         "https://assets.scrimba.com/advanced-react/react-router/beach-bum.png",
       type: "rugged",
+      hostId: "123",
     });
     server.create("van", {
       id: "3",
@@ -35,6 +38,7 @@ export default createServer({
       imageUrl:
         "https://assets.scrimba.com/advanced-react/react-router/reliable-red.png",
       type: "luxury",
+      hostId: "456",
     });
     server.create("van", {
       id: "4",
@@ -45,6 +49,7 @@ export default createServer({
       imageUrl:
         "https://assets.scrimba.com/advanced-react/react-router/dreamfinder.png",
       type: "simple",
+      hostId: "789",
     });
     server.create("van", {
       id: "5",
@@ -55,6 +60,7 @@ export default createServer({
       imageUrl:
         "https://assets.scrimba.com/advanced-react/react-router/the-cruiser.png",
       type: "luxury",
+      hostId: "789",
     });
     server.create("van", {
       id: "6",
@@ -65,21 +71,34 @@ export default createServer({
       imageUrl:
         "https://assets.scrimba.com/advanced-react/react-router/green-wonder.png",
       type: "rugged",
+      hostId: "123",
     });
   },
 
   routes() {
     this.namespace = "api";
+    this.logging = false;
+    // this.timing = 2000
 
-    // eslint-disable-next-line no-unused-vars
     this.get("/vans", (schema, request) => {
-      // throw Error({ status: 400, message: "Error fetching data" });
+      // return new Response(400, {}, {error: "Error fetching data"})
       return schema.vans.all();
     });
 
     this.get("/vans/:id", (schema, request) => {
       const id = request.params.id;
       return schema.vans.find(id);
+    });
+
+    this.get("/host/vans", (schema, request) => {
+      // Hard-code the hostId for now
+      return schema.vans.where({ hostId: "123" });
+    });
+
+    this.get("/host/vans/:id", (schema, request) => {
+      // Hard-code the hostId for now
+      const id = request.params.id;
+      return schema.vans.findBy({ id, hostId: "123" });
     });
   },
 });
