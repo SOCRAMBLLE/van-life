@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import LoginIcon from "../assets/images/avatar-icon.png";
 
 export default function Navbar() {
   return (
@@ -20,7 +21,7 @@ export default function Navbar() {
           to="/login"
           className={`nav--login ${({ isActive }) => isActive && "active"}`}
         >
-          <img src="./images/avatar-icon.png" />
+          <img src={LoginIcon} />
         </NavLink>
       </div>
     </nav>

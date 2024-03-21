@@ -1,16 +1,13 @@
-import { useEffect, useState } from "react";
-import { Link, NavLink, Outlet, useParams } from "react-router-dom";
+import { Link, NavLink, Outlet, useLoaderData } from "react-router-dom";
 import TypeButton from "../../components/type-button";
+import { getHostVans } from "../../lib/getVans";
+
+export function loader({ params }) {
+  return getHostVans(params.id);
+}
 
 export default function EditVanDetails() {
-  const [currentVan, setcurrentVan] = useState(null);
-
-  const { id } = useParams();
-  useEffect(() => {
-    fetch(`/api/vans/${id}`)
-      .then((res) => res.json())
-      .then((data) => setcurrentVan(data.vans));
-  }, [id]);
+  const currentVan = useLoaderData();
   return (
     <div className="host-editvans--page">
       <span className="van-detail--backbutton">

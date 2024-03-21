@@ -9,7 +9,9 @@ export async function getVans(id) {
     };
   }
   const data = await res.json();
-  return data.vans;
+  const vans = data.vans;
+  console.log("getVans data:", vans);
+  return vans;
 }
 
 export async function getHostVans(id) {
@@ -23,5 +25,7 @@ export async function getHostVans(id) {
     };
   }
   const data = await res.json();
-  return data.vans;
+  const vans = data.vans;
+  console.log("getHostVans data:", vans);
+  return vans;
 }

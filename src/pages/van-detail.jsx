@@ -1,17 +1,14 @@
-import { useEffect, useState } from "react";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useLoaderData, useLocation } from "react-router-dom";
 import TypeButton from "../components/type-button";
+import { getVans } from "../lib/getVans";
+
+export function loader({ params }) {
+  return getVans(params.id);
+}
 
 export default function VanDetail() {
-  const [currentVan, setcurrentVan] = useState(null);
   const { state } = useLocation();
-
-  const { id } = useParams();
-  useEffect(() => {
-    fetch(`/api/vans/${id}`)
-      .then((res) => res.json())
-      .then((data) => setcurrentVan(data.vans));
-  }, [id]);
+  const currentVan = useLoaderData();
 
   const search = state?.search || "";
 
@@ -23,23 +20,17 @@ export default function VanDetail() {
           {`Back to ${state.type ? state.type : "all"} vans`}
         </Link>
       </span>
-      {currentVan ? (
-        <>
-          <img src={currentVan.imageUrl} />
-          <div className="van-detail--details">
-            <TypeButton filter={currentVan.type} />
-            <h2>{currentVan.name}</h2>
-            <h4>
-              ${currentVan.price}
-              <span>/day</span>
-            </h4>
-            <p>{currentVan.description}</p>
-          </div>
-          <button>Rent this van</button>
-        </>
-      ) : (
-        <h2 className="loading">Loading...</h2>
-      )}
+      <img src={currentVan.imageUrl} />
+      <div className="van-detail--details">
+        <TypeButton filter={currentVan.type} />
+        <h2>{currentVan.name}</h2>
+        <h4>
+          ${currentVan.price}
+          <span>/day</span>
+        </h4>
+        <p>{currentVan.description}</p>
+      </div>
+      <button>Rent this van</button>
     </main>
   );
 }
