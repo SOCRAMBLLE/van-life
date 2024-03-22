@@ -1,16 +1,12 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { createContext, useContext, useState } from "react";
-import {
-  Navigate,
-  unstable_HistoryRouter,
-  useLocation,
-} from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 
 export const AuthContext = createContext();
 
 const fakeAuth = {
-  isAuthenticated: false,
+  isAuthenticated: JSON.parse(localStorage.getItem("loggedin") || false),
   signin(cb) {
     fakeAuth.isAuthenticated = true;
     setTimeout(cb, 100); // fake async
@@ -21,15 +17,18 @@ const fakeAuth = {
   },
 };
 
-function useAuth() {
+export function useAuth() {
   return useContext(AuthContext);
 }
 
 function useProvideAuth() {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(
+    JSON.parse(localStorage.getItem("loggedin")) ? "user" : null
+  );
 
   const signin = (cb) => {
     return fakeAuth.signin(() => {
+      localStorage.setItem("loggedin", true);
       setUser("user");
       cb();
     });
@@ -37,6 +36,7 @@ function useProvideAuth() {
 
   const signout = (cb) => {
     return fakeAuth.signout(() => {
+      localStorage.removeItem("loggedin");
       setUser(null);
       cb();
     });
@@ -70,7 +70,6 @@ export async function LoginUser(creds) {
     body: JSON.stringify(creds),
   });
   const data = await res.json();
-
   if (!res.ok) {
     throw {
       message: data.message,
@@ -78,6 +77,25 @@ export async function LoginUser(creds) {
       status: res.status,
     };
   }
-
   return data;
 }
+
+// function AuthButton() {
+//   let history = useHistory();
+//   let auth = useAuth();
+
+//   return auth.user ? (
+//     <p>
+//       Welcome!{" "}
+//       <button
+//         onClick={() => {
+//           auth.signout(() => history.push("/"));
+//         }}
+//       >
+//         Sign out
+//       </button>
+//     </p>
+//   ) : (
+//     <p>You are not logged in.</p>
+//   );
+// }
