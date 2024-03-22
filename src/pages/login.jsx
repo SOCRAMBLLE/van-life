@@ -4,8 +4,8 @@ import {
   useSearchParams,
   Form,
   useActionData,
-  redirect,
   useNavigate,
+  useNavigation,
 } from "react-router-dom";
 import { AuthContext, LoginUser, useAuth } from "../lib/auth";
 
@@ -14,9 +14,7 @@ export async function Action({ request }) {
     const formData = await request.formData();
     const email = formData.get("email");
     const pass = formData.get("password");
-    console.log(email, pass);
     const data = await LoginUser({ email: email, password: pass });
-    console.log("data: ", data);
     if (data) {
       return { success: true };
     }
@@ -29,14 +27,15 @@ export async function Action({ request }) {
 export default function LoginPage() {
   const auth = useAuth();
   const navigate = useNavigate();
+  const navigation = useNavigation();
   const { user } = useContext(AuthContext);
   const authData = useActionData();
   const [searchParams] = useSearchParams();
   const params = searchParams.get("login");
-  const [formStatus, setFormStatus] = useState(false);
+  const [formStatus, setFormStatus] = useState(navigation.state);
   const [formError, setFormError] = useState(null);
-  console.log("formError:", formError);
-
+  const [errorMessage, setErrorMessage] = useState(null);
+  console.log(navigation.state);
   const handleLoginSuccess = () => {
     auth.signin(() => navigate("/host", { replace: true }));
   };
@@ -50,6 +49,7 @@ export default function LoginPage() {
       handleLoginSuccess();
     } else if (authData?.error) {
       setFormError(authData);
+      setErrorMessage(authData.error);
     }
   }, [authData]);
 
@@ -68,15 +68,10 @@ export default function LoginPage() {
   //   }
   // }
 
-  // function handleChange(e) {
-  //   setFormStatus(false);
-  //   setFormError(null);
-  //   const { name, value } = e.target;
-  //   setLoginFormData((prev) => ({
-  //     ...prev,
-  //     [name]: value,
-  //   }));
-  // }
+  const handleChange = () => {
+    setFormStatus("idle");
+    setFormError(null);
+  };
 
   if (!user) {
     return (
@@ -90,21 +85,23 @@ export default function LoginPage() {
         ) : (
           <h1>Sign in to your account</h1>
         )}
-        {formError && (
-          <pre className="login-page--error-txt">{formError.error}</pre>
+        {errorMessage && (
+          <pre className="login-page--error-txt">{errorMessage}</pre>
         )}
-        <Form method="post">
+        <Form method="post" onChange={handleChange} replace>
           <input name="email" type="email" placeholder="Email address" />
           <input name="password" type="password" placeholder="Password" />
           <button
-            disabled={formStatus}
-            className={formStatus ? "disabled" : ""}
+            disabled={formStatus === "submitting" || !!formError}
+            className={
+              formStatus === "submitting" || formError ? "disabled" : ""
+            }
           >
-            {formError
-              ? "Login failed"
-              : formStatus
+            {formStatus === "submitting"
               ? "Logging in..."
-              : "Sign in"}
+              : formError
+              ? "Login failed"
+              : "Log in"}
           </button>
         </Form>
         <p className="login-page--signup-text">
