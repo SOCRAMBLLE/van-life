@@ -31,13 +31,15 @@ export default function LoginPage() {
   const { user } = useContext(AuthContext);
   const authData = useActionData();
   const [searchParams] = useSearchParams();
-  const params = searchParams.get("login");
+  const loginParams = searchParams.get("login");
+  const redirectParams = searchParams.get("redirectTo");
   const [formStatus, setFormStatus] = useState(navigation.state);
   const [formError, setFormError] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
-  console.log(navigation.state);
+
   const handleLoginSuccess = () => {
-    auth.signin(() => navigate("/host", { replace: true }));
+    const path = redirectParams || "/host";
+    auth.signin(() => navigate(path, { replace: true }));
   };
 
   const handleLogout = () => {
@@ -53,21 +55,6 @@ export default function LoginPage() {
     }
   }, [authData]);
 
-  // async function handleSubmit(e) {
-  //   e.preventDefault();
-  //   setFormError(null);
-  //   setFormStatus(true);
-  //   console.log("LoginFormData: ", loginFormData);
-  //   try {
-  //     const res = await LoginUser(loginFormData);
-  //     console.log(res);
-  //     setFormStatus(false);
-  //   } catch (err) {
-  //     console.log("catch error:", err);
-  //     setFormError(err);
-  //   }
-  // }
-
   const handleChange = () => {
     setFormStatus("idle");
     setFormError(null);
@@ -76,7 +63,7 @@ export default function LoginPage() {
   if (!user) {
     return (
       <div className="login-page--container">
-        {params ? (
+        {loginParams ? (
           <h1>
             {`You're not logged in.`}
             <br />

@@ -60,7 +60,11 @@ export function PrivateRoute({ children }) {
   return user ? (
     children
   ) : (
-    <Navigate to="/login?login=false" replace state={{ from: location }} />
+    <Navigate
+      to={`/login?login=false&redirectTo=${location.pathname}`}
+      replace
+      state={{ from: location }}
+    />
   );
 }
 
