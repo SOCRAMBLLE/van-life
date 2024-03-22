@@ -1,20 +1,16 @@
 import VanCard from "../components/vanCard";
-import { useLoaderData, useSearchParams } from "react-router-dom";
+import { Await, defer, useLoaderData, useSearchParams } from "react-router-dom";
 import { getVans } from "../lib/getVans";
+import { Suspense } from "react";
 
 export function loader() {
-  return getVans();
+  return defer({ vans: getVans() });
 }
 
 export default function Vans() {
   const [vanFilter, setVanFilter] = useSearchParams();
-  // const [error, setError] = useState(null);
   const typeFilter = vanFilter.get("type");
   const vansData = useLoaderData();
-
-  const filteredVans = typeFilter
-    ? vansData?.filter((van) => van.type === typeFilter)
-    : vansData;
 
   // filter for Links
   // function genNewFilterParam(key, value) {
@@ -38,9 +34,29 @@ export default function Vans() {
     });
   }
 
-  // if (error) {
-  //   return <h1 className="loading">There was an error: {error.message}</h1>;
-  // }
+  function vansList(vans) {
+    const filteredVans = typeFilter
+      ? vans.filter((van) => van.type === typeFilter)
+      : vans;
+    return (
+      <section className="vanspage--vanscontainer">
+        {filteredVans.map((van) => (
+          <VanCard
+            id={van.id}
+            key={van.id}
+            filter={van.type}
+            imgSrc={van.imageUrl}
+            vanName={van.name}
+            price={van.price}
+            searchParams={{
+              search: `?${vanFilter.toString()}`,
+              type: typeFilter,
+            }}
+          />
+        ))}
+      </section>
+    );
+  }
 
   return (
     <main className="vanspage--container">
@@ -75,26 +91,9 @@ export default function Vans() {
           </button>
         )}
       </div>
-      {vansData ? (
-        <section className="vanspage--vanscontainer">
-          {filteredVans.map((van) => (
-            <VanCard
-              id={van.id}
-              key={van.id}
-              filter={van.type}
-              imgSrc={van.imageUrl}
-              vanName={van.name}
-              price={van.price}
-              searchParams={{
-                search: `?${vanFilter.toString()}`,
-                type: typeFilter,
-              }}
-            />
-          ))}
-        </section>
-      ) : (
-        <h3 className="loading">Loading...</h3>
-      )}
+      <Suspense fallback={<h3 className="loading">Loading...</h3>}>
+        <Await resolve={vansData.vans}>{vansList}</Await>
+      </Suspense>
     </main>
   );
 }
