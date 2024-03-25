@@ -1,26 +1,32 @@
-import { Link, NavLink, Outlet, useLoaderData } from "react-router-dom";
+import {
+  Await,
+  Link,
+  NavLink,
+  Outlet,
+  defer,
+  useLoaderData,
+} from "react-router-dom";
 import TypeButton from "../../components/type-button";
 import { getHostVans } from "../../lib/getVans";
+import { Suspense } from "react";
 
 export async function loader({ params }) {
-  return getHostVans(params.id);
+  return defer({ van: getHostVans(params.id) });
 }
 
 export default function EditVanDetails() {
   const currentVan = useLoaderData();
-  return (
-    <div className="host-editvans--page">
-      <span className="van-detail--backbutton">
-        ⬅ <Link to="..">Back to all vans</Link>
-      </span>
+
+  function vanDetail(van) {
+    return (
       <div className="host-editvans-van--container">
         <div className="host-editvans-van--header">
-          <img src={currentVan.imageUrl} />
+          <img src={van.imageUrl} />
           <div>
-            <TypeButton filter={currentVan.type} />
-            <h2>{currentVan.name}</h2>
+            <TypeButton filter={van.type} />
+            <h2>{van.name}</h2>
             <h3>
-              ${currentVan.price}
+              ${van.price}
               <span className="price-tag--day">/day</span>
             </h3>
           </div>
@@ -46,8 +52,19 @@ export default function EditVanDetails() {
             Photos
           </NavLink>
         </nav>
-        <Outlet context={{ currentVan }} />
+        <Outlet context={{ van }} />
       </div>
+    );
+  }
+
+  return (
+    <div className="host-editvans--page">
+      <span className="van-detail--backbutton">
+        ⬅ <Link to="..">Back to all vans</Link>
+      </span>
+      <Suspense fallback={<h3 className="loading">Loading...</h3>}>
+        <Await resolve={currentVan.van}>{vanDetail}</Await>
+      </Suspense>
     </div>
   );
 }

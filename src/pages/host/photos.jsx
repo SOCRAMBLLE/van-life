@@ -1,13 +1,13 @@
 import { useOutletContext } from "react-router-dom";
 
 export default function HostVanPhotos() {
-  const { currentVan } = useOutletContext();
+  const { van } = useOutletContext();
 
   return (
     <>
-      {currentVan ? (
+      {van ? (
         <div className="host-editvans-van--photo-container">
-          <img src={currentVan.imageUrl} />
+          <img src={van.imageUrl} />
         </div>
       ) : (
         <h4 className="loading">Loading...</h4>

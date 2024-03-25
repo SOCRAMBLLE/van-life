@@ -10,7 +10,7 @@ import About from "./pages/about";
 import Vans, { loader as vansLoader } from "./pages/vans";
 import VanDetail, { loader as vanDetailLoader } from "./pages/van-detail";
 import HostLayout from "./pages/host/layout";
-import Dashboard from "./pages/host/dashboard";
+import Dashboard, { loader as dashboardLoader } from "./pages/host/dashboard";
 import Income from "./pages/host/income";
 import Reviews from "./pages/host/reviews";
 import EditVans, { loader as hostVansLoader } from "./pages/host/editvans";
@@ -32,7 +32,12 @@ function App() {
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
         <Route path="about" element={<About />} />
-        <Route path="login" element={<LoginPage />} action={LoginAction} />
+        <Route
+          path="login"
+          element={<LoginPage />}
+          action={LoginAction}
+          errorElement={<ErrorPage />}
+        />
         <Route path="vans" errorElement={<ErrorPage />}>
           <Route index element={<Vans />} loader={vansLoader} />
           <Route path=":id" element={<VanDetail />} loader={vanDetailLoader} />
@@ -46,7 +51,7 @@ function App() {
           }
           errorElement={<ErrorPage />}
         >
-          <Route index element={<Dashboard />} />
+          <Route index element={<Dashboard />} loader={dashboardLoader} />
           <Route path="income" element={<Income />} />
           <Route path="reviews" element={<Reviews />} />
           <Route path="editvan">
