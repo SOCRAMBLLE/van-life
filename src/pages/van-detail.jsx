@@ -1,9 +1,9 @@
 import { Link, useLoaderData, useLocation } from "react-router-dom";
 import TypeButton from "../components/type-button";
-import { getVans } from "../lib/api";
+import { getVan } from "../lib/api";
 
 export function loader({ params }) {
-  return getVans(params.id);
+  return getVan(params.id);
 }
 
 export default function VanDetail() {

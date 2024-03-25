@@ -7,11 +7,11 @@ import {
   useLoaderData,
 } from "react-router-dom";
 import TypeButton from "../../components/type-button";
-import { getHostVans } from "../../lib/api";
+import { getHostVan } from "../../lib/api";
 import { Suspense } from "react";
 
 export async function loader({ params }) {
-  return defer({ van: getHostVans(params.id) });
+  return defer({ van: getHostVan(params.id) });
 }
 
 export default function EditVanDetails() {
