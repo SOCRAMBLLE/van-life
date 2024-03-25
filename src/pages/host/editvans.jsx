@@ -1,7 +1,7 @@
 // import { useState } from "react";
 import { Suspense } from "react";
 import VCardHost from "../../components/vanCard-host";
-import { getHostVans } from "../../lib/getVans";
+import { getHostVans } from "../../lib/api";
 import { Await, defer, useLoaderData } from "react-router-dom";
 
 export function loader() {

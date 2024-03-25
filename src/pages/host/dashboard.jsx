@@ -1,5 +1,5 @@
 import { Link, defer, Await, useLoaderData } from "react-router-dom";
-import { getHostVans } from "../../lib/getVans";
+import { getHostVans } from "../../lib/api";
 import { BsStarFill } from "react-icons/bs";
 import { Suspense } from "react";
 

@@ -7,7 +7,7 @@ import {
   useLoaderData,
 } from "react-router-dom";
 import TypeButton from "../../components/type-button";
-import { getHostVans } from "../../lib/getVans";
+import { getHostVans } from "../../lib/api";
 import { Suspense } from "react";
 
 export async function loader({ params }) {

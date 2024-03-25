@@ -1,6 +1,6 @@
 import VanCard from "../components/vanCard";
 import { Await, defer, useLoaderData, useSearchParams } from "react-router-dom";
-import { getVans } from "../lib/getVans";
+import { getVans } from "../lib/api";
 import { Suspense } from "react";
 
 export function loader() {

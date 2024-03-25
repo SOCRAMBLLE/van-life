@@ -1,6 +1,6 @@
 import { Link, useLoaderData, useLocation } from "react-router-dom";
 import TypeButton from "../components/type-button";
-import { getVans } from "../lib/getVans";
+import { getVans } from "../lib/api";
 
 export function loader({ params }) {
   return getVans(params.id);
