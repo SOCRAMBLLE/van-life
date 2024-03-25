@@ -15,7 +15,7 @@ import Income from "./pages/host/income";
 import Reviews from "./pages/host/reviews";
 import EditVans, { loader as hostVansLoader } from "./pages/host/editvans";
 import { NotFound, ErrorPage } from "./pages/error-page";
-import "./server";
+// import "./server";
 import EditVanDetails, {
   loader as hostVanDetailsLoader,
 } from "./pages/host/editvans-details";

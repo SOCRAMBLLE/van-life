@@ -7,16 +7,18 @@ import {
   useNavigate,
   useNavigation,
 } from "react-router-dom";
-import { AuthContext, LoginUser, useAuth } from "../lib/auth";
+import { AuthContext, useAuth } from "../lib/auth";
+import { LoginUser } from "../lib/api";
 
 export async function Action({ request }) {
   try {
     const formData = await request.formData();
     const email = formData.get("email");
     const pass = formData.get("password");
-    const data = await LoginUser({ email: email, password: pass });
+    const data = await LoginUser(email, pass);
+    console.log("login data:", data);
     if (data) {
-      return { success: true };
+      return { success: true, token: data };
     }
     return { error: "Unknown error when trying to login" };
   } catch (err) {

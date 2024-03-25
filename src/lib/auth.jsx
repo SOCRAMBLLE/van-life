@@ -2,6 +2,11 @@
 /* eslint-disable react/prop-types */
 import { createContext, useContext, useState } from "react";
 import { Navigate, useLocation } from "react-router-dom";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 
 export const AuthContext = createContext();
 
@@ -68,38 +73,18 @@ export function PrivateRoute({ children }) {
   );
 }
 
-export async function LoginUser(creds) {
-  const res = await fetch("/api/login", {
-    method: "post",
-    body: JSON.stringify(creds),
-  });
-  const data = await res.json();
-  if (!res.ok) {
-    throw {
-      message: data.message,
-      statusText: res.statusText,
-      status: res.status,
-    };
-  }
-  return data;
-}
-
-// function AuthButton() {
-//   let history = useHistory();
-//   let auth = useAuth();
-
-//   return auth.user ? (
-//     <p>
-//       Welcome!{" "}
-//       <button
-//         onClick={() => {
-//           auth.signout(() => history.push("/"));
-//         }}
-//       >
-//         Sign out
-//       </button>
-//     </p>
-//   ) : (
-//     <p>You are not logged in.</p>
-//   );
+// export async function LoginUser(creds) {
+//   const res = await fetch("/api/login", {
+//     method: "post",
+//     body: JSON.stringify(creds),
+//   });
+//   const data = await res.json();
+//   if (!res.ok) {
+//     throw {
+//       message: data.message,
+//       statusText: res.statusText,
+//       status: res.status,
+//     };
+//   }
+//   return data;
 // }

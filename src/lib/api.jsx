@@ -1,4 +1,5 @@
 import { initializeApp } from "firebase/app";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import {
   getFirestore,
   collection,
@@ -53,8 +54,8 @@ const firebaseConfig = {
 // FIREBASE DB
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+const firebaseApp = initializeApp(firebaseConfig);
+const db = getFirestore(firebaseApp);
 const vansCollectionRef = collection(db, "vans");
 
 export async function getVans() {
@@ -96,4 +97,42 @@ export async function getHostVan(id) {
     ...vanSnap.data(),
     id: vanSnap.id,
   };
+}
+
+export async function LoginUser(email, password) {
+  console.log("1. Starting LoginUser..:", email, password);
+  const auth = getAuth(firebaseApp);
+  console.log("2. auth..");
+  // await signInWithEmailAndPassword(auth, email, password)
+  //   .then((userCredential) => {
+  //     const user = userCredential.user;
+  //     console.log("3. signInWithEmailAndPassword..");
+  //     console.log("user: ", user.accessToken);
+  //   })
+  //   .catch((err) => {
+  //     console.log(err.customData);
+  //     const errorCode = err.code;
+  //     const errorMessage = err.message;
+  //     throw {
+  //       message: errorMessage,
+  //       status: errorCode,
+  //     };
+  //   });
+  try {
+    const data = await signInWithEmailAndPassword(auth, email, password);
+    const user = data.user;
+    const userJson = {
+      id: user.uid,
+      email: user.email,
+      token: user.accessToken,
+    };
+    return userJson;
+  } catch (err) {
+    const errorCode = err.code;
+    const errorMessage = err.message;
+    throw {
+      message: errorMessage,
+      status: errorCode,
+    };
+  }
 }
