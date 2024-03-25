@@ -33,13 +33,8 @@ function App() {
         <Route index element={<Home />} />
         <Route path="about" element={<About />} />
         <Route path="login" element={<LoginPage />} action={LoginAction} />
-        <Route path="vans">
-          <Route
-            index
-            element={<Vans />}
-            loader={vansLoader}
-            errorElement={<ErrorPage />}
-          />
+        <Route path="vans" errorElement={<ErrorPage />}>
+          <Route index element={<Vans />} loader={vansLoader} />
           <Route path=":id" element={<VanDetail />} loader={vanDetailLoader} />
         </Route>
         <Route
@@ -49,6 +44,7 @@ function App() {
               <HostLayout />
             </PrivateRoute>
           }
+          errorElement={<ErrorPage />}
         >
           <Route index element={<Dashboard />} />
           <Route path="income" element={<Income />} />
