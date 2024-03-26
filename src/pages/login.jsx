@@ -16,9 +16,8 @@ export async function Action({ request }) {
     const email = formData.get("email");
     const pass = formData.get("password");
     const data = await LoginUser(email, pass);
-    console.log("login data:", data);
     if (data) {
-      return { success: true, token: data };
+      return { success: true, user: data };
     }
     return { error: "Unknown error when trying to login" };
   } catch (err) {
@@ -28,9 +27,9 @@ export async function Action({ request }) {
 
 export default function LoginPage() {
   const auth = useAuth();
+  const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   const navigation = useNavigation();
-  const { user } = useContext(AuthContext);
   const authData = useActionData();
   const [searchParams] = useSearchParams();
   const loginParams = searchParams.get("login");
@@ -41,7 +40,7 @@ export default function LoginPage() {
 
   const handleLoginSuccess = () => {
     const path = redirectParams || "/host";
-    auth.signin(() => navigate(path, { replace: true }));
+    auth.signin(authData.user, () => navigate(path, { replace: true }));
   };
 
   const handleLogout = () => {

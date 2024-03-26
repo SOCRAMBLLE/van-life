@@ -9,6 +9,7 @@ import {
   query,
   where,
 } from "firebase/firestore/lite";
+import { GetCurrentUser } from "./auth";
 
 const firebaseConfig = {
   apiKey: process.env.apiKey,
@@ -79,7 +80,8 @@ export async function getVan(id) {
 }
 
 export async function getHostVans() {
-  const q = query(vansCollectionRef, where("hostId", "==", "123"));
+  const user = GetCurrentUser();
+  const q = query(vansCollectionRef, where("hostId", "==", user.id));
   const querySnapshot = await getDocs(q);
   const dataArr = querySnapshot.docs.map((doc) => {
     return {
@@ -100,24 +102,7 @@ export async function getHostVan(id) {
 }
 
 export async function LoginUser(email, password) {
-  console.log("1. Starting LoginUser..:", email, password);
   const auth = getAuth(firebaseApp);
-  console.log("2. auth..");
-  // await signInWithEmailAndPassword(auth, email, password)
-  //   .then((userCredential) => {
-  //     const user = userCredential.user;
-  //     console.log("3. signInWithEmailAndPassword..");
-  //     console.log("user: ", user.accessToken);
-  //   })
-  //   .catch((err) => {
-  //     console.log(err.customData);
-  //     const errorCode = err.code;
-  //     const errorMessage = err.message;
-  //     throw {
-  //       message: errorMessage,
-  //       status: errorCode,
-  //     };
-  //   });
   try {
     const data = await signInWithEmailAndPassword(auth, email, password);
     const user = data.user;

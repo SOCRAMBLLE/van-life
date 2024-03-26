@@ -2,16 +2,10 @@
 /* eslint-disable react/prop-types */
 import { createContext, useContext, useState } from "react";
 import { Navigate, useLocation } from "react-router-dom";
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
-
 export const AuthContext = createContext();
 
 const fakeAuth = {
-  isAuthenticated: JSON.parse(localStorage.getItem("loggedin") || false),
+  isAuthenticated: JSON.parse(localStorage.getItem("user") || false),
   signin(cb) {
     fakeAuth.isAuthenticated = true;
     setTimeout(cb, 100); // fake async
@@ -28,22 +22,23 @@ export function useAuth() {
 
 function useProvideAuth() {
   const [user, setUser] = useState(
-    JSON.parse(localStorage.getItem("loggedin")) ? "user" : null
+    JSON.parse(localStorage.getItem("user")) ? "user" : null
   );
 
-  const signin = (cb) => {
+  const signin = (user, cb) => {
     return fakeAuth.signin(() => {
-      localStorage.setItem("loggedin", true);
-      setUser("user");
-      cb();
+      setCurrentUser(user);
+      localStorage.setItem("user", JSON.stringify(user.token));
+      setUser(user);
+      if (cb) cb();
     });
   };
 
   const signout = (cb) => {
     return fakeAuth.signout(() => {
-      localStorage.removeItem("loggedin");
+      localStorage.removeItem("user");
       setUser(null);
-      cb();
+      if (cb) cb();
     });
   };
 
@@ -72,6 +67,16 @@ export function PrivateRoute({ children }) {
     />
   );
 }
+
+let currentUser = null;
+
+const setCurrentUser = (user) => {
+  currentUser = user;
+};
+
+export const GetCurrentUser = () => {
+  return currentUser;
+};
 
 // export async function LoginUser(creds) {
 //   const res = await fetch("/api/login", {

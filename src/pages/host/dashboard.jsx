@@ -52,7 +52,7 @@ export default function Dashboard() {
       <section className="host-dashboard-vans">
         <div className="top">
           <h2>Your listed vans</h2>
-          <Link to="vans">View all</Link>
+          <Link to="editvan">View all</Link>
         </div>
         <Suspense fallback={<h3>Loading...</h3>}>
           <Await resolve={loaderData.vans}>{renderVanElements}</Await>
