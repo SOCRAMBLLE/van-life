@@ -181,3 +181,15 @@ nav a {
   font-weight: 500;
   color: #4d4d4d;
 }
+
+.login-page--logout-button {
+  width: 80%;
+  height: 40px;
+  margin: 3rem 0 2rem;
+  border-radius: 5px;
+  background-color: #ff8c38;
+  color: white;
+  border: none;
+  font-family: "Inter", sans-serif;
+  cursor: pointer;
+}

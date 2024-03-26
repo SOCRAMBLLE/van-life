@@ -100,8 +100,11 @@ export default function LoginPage() {
   }
   return (
     <div className="login-page--container">
-      <h1>Welcome!</h1>
-      <button onClick={handleLogout}>Logout</button>
+      <h2>You are logged in with the email:</h2>
+      <i>{user.email}</i>
+      <button className="login-page--logout-button" onClick={handleLogout}>
+        Logout
+      </button>
     </div>
   );
 }
