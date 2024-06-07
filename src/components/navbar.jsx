@@ -2,9 +2,11 @@ import { NavLink } from "react-router-dom";
 import LoginIcon from "../assets/images/avatar-icon.png";
 import { useContext } from "react";
 import { AuthContext } from "../lib/auth";
+import LanguageSwitcher from "./languageSwitcher";
 
 export default function Navbar() {
   const { user } = useContext(AuthContext);
+
   return (
     <nav>
       <div className="nav--brand">
@@ -38,6 +40,7 @@ export default function Navbar() {
         >
           <img src={LoginIcon} />
         </NavLink>
+        <LanguageSwitcher />
       </div>
     </nav>
   );

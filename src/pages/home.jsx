@@ -1,15 +1,14 @@
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export default function Home() {
+  const { t } = useTranslation("homepage");
   return (
     <main className="homepage--container">
-      <h1>You got the travel plans, we got the travel vans.</h1>
-      <p>
-        Add adventure to your life by joining the #vanlife movement. <br />
-        Rent the perfect van to make your perfect road trip.
-      </p>
+      <h1>{t("title")}</h1>
+      <p>{t("description")}</p>
       <Link to="vans" className="homepage--button">
-        <button>Find your van</button>
+        <button>{t("button")}</button>
       </Link>
     </main>
   );
